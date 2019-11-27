@@ -49,7 +49,7 @@ class Solver(object):
 
         # Miscellaneous.
         self.use_tensorboard = config.use_tensorboard
-        self.device = torch.device('opencl')
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
         # Directories.
         self.log_dir = config.log_dir
@@ -530,6 +530,7 @@ class Solver(object):
         elif self.dataset == 'RaFD':
             data_loader = self.rafd_loader
         
+        print('debut test')
         with torch.no_grad():
             for i, (x_real, c_org) in enumerate(data_loader):
 
